@@ -69,6 +69,7 @@ const EmployeeHRM = ({
     leaveTypeApi,
     postHalfDay,
     CreateExpense,
+    getUserHalfDay
     
   } = useMain();
 
@@ -81,6 +82,7 @@ const EmployeeHRM = ({
     totalEmployees: 0,
     totalDeactivated:0,
     halfDayRequest: 0,
+   
     
   });
 
@@ -90,7 +92,7 @@ const EmployeeHRM = ({
   const [clockoutLoading, setClockOutLoading] = useState(false);
 
   const [totalLeave, setTotalLeave] = useState(0);
-  const [totalHalfDay, setTotalHalfDay] = useState(0);
+  
 
   let hrms_user = JSON?.parse(localStorage.getItem("hrms_user"));
   let hrms_permission = JSON?.parse(localStorage.getItem("hrms_permission"));
@@ -168,7 +170,7 @@ const EmployeeHRM = ({
   const [star2, setStar2] = useState(false);
 
   const [openAnn, setOpenAnn] = useState(false);
-
+  const [totalHalfDay, setTotalHalfDay] = useState(0);
   const [task, setTask] = useState([
     {
       name: "Chirag",
@@ -195,18 +197,21 @@ const EmployeeHRM = ({
       task: "Madfish",
     },
   ]);
+  
+
 
   const getData = async () => {
     setLoadFlag(true);
     const ans = await getUsers();
     const totalactiveEmployees = ans?.data?.filter(emp => emp.isDeactivated === "No");
     const ans1 = await getActiveUsersCount();
-    // console.log("total user  user count",totalactiveEmployees)
+    
     const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
-// console.log("total decativated employee",totalDeactivated);
+    
     const ans2 = await getTotalLeavesCount();
+     console.log("user total leaves count ",ans2)
     setTotalLeave(ans2.totalLeave);
-    setTotalHalfDay(ans2?.halfDay);
+   
 
     setCounts({
       ...counts,
@@ -229,6 +234,8 @@ const EmployeeHRM = ({
   const [leavedata, setLeavedata] = useState({
     casualLeave: 0,
     paidLeave: 0,
+    halfDays:0,
+   
   });
 
   useEffect(() => {
@@ -519,6 +526,7 @@ const EmployeeHRM = ({
 
   useEffect(() => {
     getData();
+   
   }, []);
 
   const getAnnoucement = async () => {
@@ -646,6 +654,7 @@ const EmployeeHRM = ({
     getLeavesEmp();
     fetchLeaveType();
     getTodayBirthdayapi();
+   
     // setLeaveTaken(hrms_user?.totalLeaves);
   }, []);
 
@@ -714,10 +723,13 @@ const EmployeeHRM = ({
 
   const leavestypecount = async () => {
     const resp = await leaveTypeApi({ id: user2?._id });
+
+    console.log("total all type of  leaves is here",resp)
     setLeaveTaken(resp?.data?.totalLeaves);
     setLeavedata({
       casualLeave: resp?.data?.casualLeave,
       paidLeave: resp?.data?.paidLeave,
+      halfDays: resp?.data?.halfDays,
     });
   };
 
@@ -767,6 +779,19 @@ const EmployeeHRM = ({
   };
 
   const [showMore, setShowMore] = useState(false);
+  function validateForm(data) {
+    return (
+      data.leaveType !== "" &&
+      data.start !== "" &&
+      data.end !== "" &&
+      data.reason !== ""
+    );
+  }
+
+
+  
+
+
   return (
     <>
       <div className="employee-dash relative h-full">
@@ -1724,6 +1749,12 @@ const EmployeeHRM = ({
                                 Paid - {leavedata?.paidLeave}
                               </span>{" "}
                             </p>
+                            <p>
+                              <img src={sick2} alt="" />
+                              <span className="cas">
+                              Half Days - {leavedata?.halfDays}
+                              </span>{" "}
+                            </p>
                           </div>
                         </div>
 
@@ -1746,6 +1777,12 @@ const EmployeeHRM = ({
                                 Paid - {leavedata?.paidLeave}
                               </span>{" "}
                             </p>
+                            <p>
+                              <img src={sick2} alt="" />
+                              <span className="cas">
+                              Half Days - {leavedata?.halfDays}
+                              </span>{" "}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -1753,14 +1790,23 @@ const EmployeeHRM = ({
                       <div className="leave_setion_emp">
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
-                            <h5>
+                            {/* <h5>
                               {parseInt(user2?.userAllowance) -
                                 parseInt(totalLeavetaken) >=
                               0
                                 ? parseInt(user2?.leaveNumber) -
                                   parseInt(totalLeavetaken)
                                 : 0}
-                            </h5>
+                            </h5> */}
+                              <h5>
+        {parseInt(user2?.leaveNumber) - 
+         (parseInt(totalLeavetaken) + 
+          parseFloat(leavedata?.halfDays) * 0.5) >= 0
+          ? parseInt(user2?.leaveNumber) - 
+            (parseInt(totalLeavetaken) + 
+             parseFloat(leavedata?.halfDays) * 0.5)
+          : 0}
+      </h5>
                             <p>Total leave available</p>
                           </div>
                           <div>
@@ -1775,6 +1821,12 @@ const EmployeeHRM = ({
                               <img src={sick2} alt="" />
                               <span className="cas">
                                 Paid - {leavedata?.paidLeave}
+                              </span>{" "}
+                            </p>
+                            <p>
+                              <img src={sick2} alt="" />
+                              <span className="cas">
+                               Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1797,6 +1849,12 @@ const EmployeeHRM = ({
                               <img src={sick2} alt="" />
                               <span className="cas">
                                 Paid - {leavedata?.paidLeave}
+                              </span>{" "}
+                            </p>
+                            <p>
+                              <img src={sick2} alt="" />
+                              <span className="cas">
+                              Half Days - {leavedata?.halfDays}
                               </span>{" "}
                             </p>
                           </div>
@@ -1867,241 +1925,222 @@ const EmployeeHRM = ({
 
                 {/* this is create leave  */}
                 {showleave && (
-                  <>
-                    <div className="leavewrapping">
-                      <div className="crelevecont">
-                        <div class="crelavetopsec">
-                          <h3 class="leaveHead "> Leave Request </h3>
+  <>
+    <div className="leavewrapping">
+      <div className="crelevecont">
+        <div class="crelavetopsec">
+          <h3 class="leaveHead">Leave Request</h3>
+          <img src={cutt} onClick={() => setShowLeave(false)} alt="" />
+        </div>
 
-                          <img
-                            src={cutt}
-                            onClick={() => setShowLeave(false)}
-                            alt=""
-                          />
-                        </div>
+        <hr />
 
-                        <hr />
+        {/* <!-- Modal body --> */}
+        <form className="levaecretaeform" action="#">
+          <div class="user_classleave">
+            <label>Leave type</label>
+            <select
+              name="leaveType"
+              onChange={changeHandler}
+              value={formdata.leaveType}
+              required
+            >
+              {leaveType.map((item, index) => (
+                <option value={item?.name} key={index}>
+                  {item?.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-                        {/* <!-- Modal body --> */}
-                        <form className="levaecretaeform" action="#">
-                          <div class="user_classleave">
-                            <label>Leave type</label>
+          <div className="levaecreflex">
+            <div class="user_class_input3 w-full mt-2">
+              <label
+                for="text"
+                class="block mb-2 text-sm font-medium text-gray-900 employName"
+              >
+                Start
+              </label>
+              <input
+                value={formdata.start}
+                onChange={changeHandler}
+                type="date"
+                name="start"
+                id="text"
+                class="startDate"
+                required
+              />
+            </div>
 
-                            <select
-                              name="leaveType"
-                              onChange={changeHandler}
-                              value={formdata.leaveType}
-                              required
-                            >
-                              {leaveType.map((item, index) => (
-                                <option value={item?.name} key={index}>
-                                  {item?.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+            <div class="user_class_input3 w-full ml-2 mt-2">
+              <label
+                for="text"
+                class="block mb-2 text-sm font-medium text-gray-900 employName"
+              >
+                End
+              </label>
+              <input
+                value={formdata.end}
+                onChange={changeHandler}
+                type="date"
+                name="end"
+                id="text"
+                class="startDate"
+                required
+              />
+            </div>
+          </div>
 
-                          <div className="levaecreflex">
-                            <div class="user_class_input3 w-full mt-2 ">
-                              <label
-                                for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 employName"
-                              >
-                                Start
-                              </label>
-                              <input
-                                value={formdata.start}
-                                onChange={changeHandler}
-                                type="date"
-                                name="start"
-                                id="text"
-                                class="startDate"
-                                required
-                              />
-                            </div>
+          <div class="levelreasons">
+            <label
+              for="message"
+              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+            >
+              Reason
+            </label>
+            <textarea
+              required
+              name="reason"
+              onChange={changeHandler}
+              value={formdata.reason}
+              id="message"
+              rows="4"
+              class="reasonText2"
+              placeholder="Enter your reason..."
+            ></textarea>
+          </div>
 
-                            <div class="user_class_input3 w-full ml-2  mt-2">
-                              <label
-                                for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 employName"
-                              >
-                                End
-                              </label>
-                              <input
-                                value={formdata.end}
-                                onChange={changeHandler}
-                                type="date"
-                                name="end"
-                                id="text"
-                                class="startDate"
-                                required
-                              />
-                            </div>
-                          </div>
+          <div className="leavebuttons">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (validateForm(formdata)) {
+                  submitHandler(e);
+                } else {
+                  alert("Please fill out all required fields.");
+                }
+              }}
+              type="button"
+              className="leaverqbtns"
+            >
+              <span>Request send</span>
+            </button>
 
-                          <div class="levelreasons">
-                            <label
-                              for="message"
-                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-                            >
-                              Reason
-                            </label>
-                            <textarea
-                              required
-                              name="reason"
-                              onChange={changeHandler}
-                              value={formdata.reason}
-                              id="message"
-                              rows="4"
-                              class="reasonText2"
-                              placeholder="Enter your reason..."
-                            ></textarea>
-                          </div>
+            <button
+              onClick={() => setStar1(false)}
+              type="button"
+              class="levacanclebtns"
+            >
+              <span>Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </>
+)}
 
-                          <div className="leavebuttons">
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
+{showleave2 && (
+  <>
+    <div className="leavewrapping">
+      <div className="crelevecont">
+        <div class="crelavetopsec">
+          <h3 class="leaveHead">Half Day Request</h3>
+          <img src={cutt} onClick={() => setShowLeave2(false)} alt="" />
+        </div>
 
-                                submitHandler(e);
-                              }}
-                              type="button"
-                              className="leaverqbtns"
-                            >
-                              <span> Request send</span>
-                            </button>
+        <hr />
 
-                            <button
-                              onClick={() => setStar1(false)}
-                              type="button"
-                              class="levacanclebtns"
-                            >
-                              <span>Cancel</span>
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </>
-                )}
+        {/* <!-- Modal body --> */}
+        <form className="levaecretaeform" action="#">
+          <div className="levaecreflex">
+            <div class="user_class_input3 w-full mt-2">
+              <label
+                for="text"
+                class="block mb-2 text-sm font-medium text-gray-900 employName"
+              >
+                Start
+              </label>
+              <input
+                value={formdata2.start}
+                onChange={changeHandler2}
+                type="date"
+                name="start"
+                id="text"
+                class="startDate"
+                required
+              />
+            </div>
 
-                {showleave2 && (
-                  <>
-                    <div className="leavewrapping">
-                      <div className="crelevecont">
-                        <div class="crelavetopsec">
-                          <h3 class="leaveHead "> Half Day Request </h3>
+            <div class="user_class_input3 w-full ml-2 mt-2">
+              <label
+                for="text"
+                class="block mb-2 text-sm font-medium text-gray-900 employName"
+              >
+                End
+              </label>
+              <input
+                value={formdata2.end}
+                onChange={changeHandler2}
+                type="date"
+                name="end"
+                id="text"
+                class="startDate"
+                required
+              />
+            </div>
+          </div>
 
-                          <img
-                            src={cutt}
-                            onClick={() => setShowLeave2(false)}
-                            alt=""
-                          />
-                        </div>
+          <div class="levelreasons">
+            <label
+              for="message"
+              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+            >
+              Reason
+            </label>
+            <textarea
+              required
+              name="reason"
+              onChange={changeHandler2}
+              value={formdata2.reason}
+              id="message"
+              rows="4"
+              class="reasonText2"
+              placeholder="Enter your reason..."
+            ></textarea>
+          </div>
 
-                        <hr />
+          <div className="leavebuttons">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (validateForm(formdata2)) {
+                  submitHandler2();
+                } else {
+                  alert("Please fill out all required fields.");
+                }
+              }}
+              type="button"
+              className="leaverqbtns"
+            >
+              <span>Request send</span>
+            </button>
 
-                        {/* <!-- Modal body --> */}
-                        <form className="levaecretaeform" action="#">
-                          {/* <div class="user_classleave">
-                            <label>Leave type</label>
+            <button
+              onClick={() => setShowLeave2(false)}
+              type="button"
+              class="levacanclebtns"
+            >
+              <span>Cancel</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </>
+)}
 
-                            <select
-                              name="leaveType"
-                              onChange={changeHandler}
-                              value={formdata.leaveType}
-                              required
-                            >
-                              {leaveType.map((item, index) => (
-                                <option value={item?.name} key={index}>
-                                  {item?.name}
-                                </option>
-                              ))}
-                            </select>
-                          </div> */}
 
-                          <div className="levaecreflex">
-                            <div class="user_class_input3 w-full mt-2 ">
-                              <label
-                                for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 employName"
-                              >
-                                Start
-                              </label>
-                              <input
-                                value={formdata2.start}
-                                onChange={changeHandler2}
-                                type="date"
-                                name="start"
-                                id="text"
-                                class="startDate"
-                                required
-                              />
-                            </div>
-
-                            <div class="user_class_input3 w-full ml-2  mt-2">
-                              <label
-                                for="text"
-                                class="block mb-2 text-sm font-medium text-gray-900 employName"
-                              >
-                                End
-                              </label>
-                              <input
-                                value={formdata2.end}
-                                onChange={changeHandler2}
-                                type="date"
-                                name="end"
-                                id="text"
-                                class="startDate"
-                                required
-                              />
-                            </div>
-                          </div>
-
-                          <div class="levelreasons">
-                            <label
-                              for="message"
-                              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-                            >
-                              Reason
-                            </label>
-                            <textarea
-                              required
-                              name="reason"
-                              onChange={changeHandler2}
-                              value={formdata2.reason}
-                              id="message"
-                              rows="4"
-                              class="reasonText2"
-                              placeholder="Enter your reason..."
-                            ></textarea>
-                          </div>
-
-                          <div className="leavebuttons">
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                submitHandler2();
-                              }}
-                              type="button"
-                              className="leaverqbtns"
-                            >
-                              <span> Request send</span>
-                            </button>
-
-                            <button
-                              onClick={() => setShowLeave2(false)}
-                              type="button"
-                              class="levacanclebtns"
-                            >
-                              <span>Cancel</span>
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </>
-                )}
 
                 {openAnn && (
                   <>

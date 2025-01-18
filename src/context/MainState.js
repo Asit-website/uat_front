@@ -10,6 +10,7 @@ const baseUrl = "http://localhost:5000";
 // const baseUrl = "http://localhost:5000";
 
 // const baseUrl = "https://hrms-backend-q2ta.onrender.com";
+
 // const baseUrl = "https://uat-backend-o1wm.onrender.com"
 // this is production baseurl 
 // const baseUrl = "https://hmsbackend.kusheldigi.com";
