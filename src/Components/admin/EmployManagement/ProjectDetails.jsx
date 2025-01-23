@@ -529,7 +529,10 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              <div className="btnsss">
+              
+              
+            </form>
+            <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>{isEdit ? "Update" : "Add Task"}</span>
                 </button>
@@ -551,9 +554,6 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
-              
-            </form>
-         
           </div>
         </div>
       )}

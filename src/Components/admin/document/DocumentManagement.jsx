@@ -10,7 +10,7 @@ import "./document.css";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import toast from "react-hot-toast";
-
+import  data1 from "./Document1"
 const item = [
   {
     title: "Full-time Employee",
@@ -79,20 +79,20 @@ const data = `<p class="MsoNormal" align="left" style="text-indent: -1px; color:
 <p class="MsoNormal" align="left" style="margin: 0in 0in 0px; color: black; text-align: left; text-indent: 0in; line-height: normal; font-size: 16px;"><strong><span style="color: windowtext; font-family: Inter, sans-serif;">Responsibilities:</span></strong></p>
 
 <ol start="1" type="1" style="margin-bottom: 0in;">
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Identify
-            and pursue new business opportunities to generate leads and increase
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Identify
+            and pursue new business opportunities to generate leads and increase  
             revenue.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Develop
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background:orange; font-family: Inter, sans-serif;">Develop
             and maintain relationships with clients and key stakeholders.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Collaborate
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Collaborate
             with the sales and marketing teams to develop strategies for business
             growth.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Analyze
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Analyze
             market trends and competitor activities to identify potential areas for
             expansion.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Prepare
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Prepare
             and deliver presentations to prospective clients.</span></li>
-    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;">Negotiate
+    <li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: orange; font-family: Inter, sans-serif;">Negotiate
             contracts and agreements with clients.</span></li><li class="MsoNormal" style="margin: 0in 0in 0px 0.5in; color: windowtext; text-align: left; text-indent: -0.25in; line-height: normal; font-size: 16px;"><span style="background: yellow; font-family: Inter, sans-serif;"><br></span></li>
 </ol>
 
@@ -357,7 +357,7 @@ the time being in force.</span></p>
   <p class="TableParagraph" style="font-family: Arial, sans-serif; margin: 3px 0in 0px 10px; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; font-size: 13px;">TOTAL COST TO THE COMPANY (Per Annum)</span></strong></p>
   </td>
   <td width="362" valign="top" style="width: 361px; background: rgb(217, 217, 217); padding: 0in; height: 21px;">
-  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;">[annualCompensation]</span></strong></p>
+  <p class="TableParagraph" align="right" style="font-family: Arial, sans-serif; margin: 3px 2px 0px 0in; text-align: right; font-size: 15px;"><strong><span style="font-family: Inter, sans-serif; color: black; background: yellow; font-size: 13px;"></span></strong></p>
   </td>
  </tr>
 </tbody></table>
@@ -971,14 +971,14 @@ const data3 = `
 
 const data4 = `
 <br>
- <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: 27th JULY 2024</p>
+ <p><span style="font-family: Helvetica, sans-serif;"><strong style="font-size: 14px;">Date</strong></span>: [issueDate]</p>
  
  <p><br></p><p><strong style="font-size: 14px;">Position:</strong> [POSITION] Intern</p><p><br></p><p><strong style="font-size: 14px;">Work Hours:</strong> [WORKHOUR] Hours</p><p><br></p><p>
 <strong style="font-size: 14px;">Location: </strong> [LOCATION] </p><p><br></p><p>
 <strong style="font-size: 14px;">Duration: </strong> [DURATION]
 </p><p><br></p><p><strong style="font-size: 14px;">Job Profile</strong>: [POSITION] Intern</p><p><br></p><p>
 <strong style="font-size: 14px;">Salary: </strong> [SALARY]
-</p><p><br></p><p><strong style="font-size: 14px;">Joining Date:</strong> 29 June 2024
+</p><p><br></p><p><strong style="font-size: 14px;">Joining Date:</strong> [joiningDate]
 </p><p><br></p><p> [NAME] ,
 I am pleased to extend an offer to you for the position of [POSITION] with KUSHEL DIGI SOLUTIONS,
 effective [EFFECTIVE]. This position is an [SALARY] internship for [DURATION], aimed at providing valuable handson experience in [EXPERIENCEAT].</p><p><br></p><p>
@@ -2016,6 +2016,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     experienceat: "[EXPERIENCEAT]",
     acceptDate: "[ACCEPTDATE]",
     startDate: "[STARTDATE]",
+    joiningDate:"[joiningDate]",
+    issueDate :"[issueDate]"
   });
 
   const [replaceData3, setReplaceData3] = useState({
@@ -2054,6 +2056,8 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
     experienceat: "",
     acceptDate: "",
     startDate: "",
+    joiningDate:"",
+    issueDate:""
   });
 
   const [detail3, setDetail3] = useState({
@@ -2288,8 +2292,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
   useEffect(() => {
     handleInsert1("employeeType");
   }, [currEmp]);
-
+    
+   // Calculate yearly compensation
   
+   console.log(detail);
+   
+   const yearlyCompensation = detail.compensation
+   ? (parseFloat(detail.compensation) * 12).toFixed(2)
+   : "0.00";
+   console.log("yearly compensation",yearlyCompensation)
+
   return (
     <>
       <div className="employee-dash h-full">
@@ -2463,13 +2475,19 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                   
 
                       <label>
-                        <input
-                          type="text"
+                       <div className="joindatewrap">
+                       <input
+                          type="time"
                           name="workingHour"
                           value={detail.workingHour}
                           onChange={handleNameChange}
-                          placeholder="Enter working Hour"
+                          placeholder="working Hour"
+                          
                         />
+                        
+                        <p>working Hour</p>
+                       </div>
+                        
                         <button onClick={() => handleInsert1("workingHour")}>
                           Insert
                         </button>
@@ -2686,13 +2704,16 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       </label>
 
                       <label>
-                        <input
-                          type="text"
+                       <div className="joindatewrap">
+                       <input
+                          type="time"
                           name="workHour"
                           value={detail2.workHour}
                           onChange={handleNameChange2}
                           placeholder="Work Hour"
                         />
+                       <p>work hour</p>
+                       </div>
                         <button onClick={() => handleInsert3("workHour")}>
                           Insert
                         </button>
@@ -2723,7 +2744,30 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                           Insert
                         </button>
                       </label>
-
+                      <label>
+                        <input
+                          type="text"
+                          name="joiningDate"
+                          value={detail2.joiningDate}
+                          onChange={handleNameChange2}
+                          placeholder="joining date"
+                        />
+                        <button onClick={() => handleInsert3("joiningDate")}>
+                          Insert
+                        </button>
+                      </label>
+                      <label>
+                        <input
+                          type="text"
+                          name="issueDate"
+                          value={detail2.issueDate}
+                          onChange={handleNameChange2}
+                          placeholder="issue Date"
+                        />
+                        <button onClick={() => handleInsert3("issueDate")}>
+                          Insert
+                        </button>
+                      </label>
                       <label>
                         <input
                           type="text"
@@ -3694,7 +3738,7 @@ const DocumentManagement = ({ setAlert, pop, setPop }) => {
                       <label>
                         <div className="joindatewrap">
                           <input
-                            type="text"
+                            type="number"
                             name="workingDays"
                             value={detail5.workingDays}
                             onChange={handleNameChange5}

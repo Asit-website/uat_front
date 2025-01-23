@@ -34,7 +34,7 @@ const MyLeaves = ({
   };
 
   const { user, FetchMyLeave } = useMain();
-
+   
   const [data, setData] = useState([]);
 
   let hrms_user = JSON.parse(localStorage.getItem("hrms_user"));
