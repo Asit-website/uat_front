@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import EmployeeSidebar from "../../Employee/Sidebar/EmployeeSidebar";
 import EmployeeNavbar from "../../Employee/Navbar/EmployeeNavbar";
 import { RxCross2 } from "react-icons/rx";
+import Alert from './../../Alert/Alert';
 
 
 const LeaveRequest = ({
@@ -640,11 +641,17 @@ const LeaveRequest = ({
                         
                         e.preventDefault();
                        
-                       submitHandler(e);
+                      //  submitHandler(e);
+                      const confirmAction = window.confirm("Are you sure you want to edit the leave again?");
+                      if (confirmAction) {
+                        submitHandler(e);
+                      }
+
                       }}
                       type="button" 
                       class="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
+                      
                       send
                     </button>
 

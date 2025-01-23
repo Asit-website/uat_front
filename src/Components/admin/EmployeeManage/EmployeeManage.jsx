@@ -63,7 +63,7 @@ const EmployeeManage = ({
 
   const getEmployee = async () => {
     const ans = await allEmployee();
-    console.log("Total employee here", ans);
+
     setEmployee(ans?.emp);
   };
   useEffect(() => {
@@ -304,10 +304,8 @@ const EmployeeManage = ({
       if (e.target.name === "mobile" && e.target.value.length > 10) {
         return;
       }
-      setValue2({ ...value2, [e.target.name]: e.target.value });
-    } else if (type === "form2") {
-      if (e.target.name === "leaveNumber" && e.target.value.length > 2) {
-        return;
+      if (e.target.name === "leaveNumber" && e.target.value.length > 0) {
+        // leaveNumber validation can be added here if needed
       }
       setValue2({ ...value2, [e.target.name]: e.target.value });
     } else if (type === "form3") {
@@ -436,7 +434,15 @@ const EmployeeManage = ({
       if (documents.ExperienceLetter) {
         formData.append("ExperienceLetter", ExperienceLetter);
       }
-
+ // Log form data to console
+ console.log("Form Data being sent:", {
+  ...value1,
+  ...value2,
+  ...value3,
+  ...value4,
+  ...value5,
+  leaveNumber: value2.leaveNumber,
+});
       if (
         documents.adharCard !== "" ||
         documents.pancard !== "" ||
@@ -915,22 +921,18 @@ const EmployeeManage = ({
                             <div className="flex w-full">
                               <div className="mb-6 w-full try">
                                 <label
-                                  for="currentAddress"
-                                  className="block mb-0  font-medium "
+                                  htmlFor="leaveNumber"
+                                  className="block mb-0 font-medium"
                                 >
                                   Total Leaves
                                 </label>
                                 <input
                                   type="number"
                                   id="leaveNumber"
-                                  className="rounded-lg  w-full"
-                                  // required
+                                  className="rounded-lg w-full"
                                   name="leaveNumber"
                                   value={value2?.leaveNumber}
-                                  onChange={(e) => {
-                                    handleChange(e, "form2");
-                                  }}
-                                  disabled={value2.status}
+                                  onChange={(e) => handleChange(e, "form2")}
                                 />
                               </div>
                             </div>

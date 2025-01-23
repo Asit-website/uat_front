@@ -69,11 +69,14 @@ const EmployeeHRM = ({
     leaveTypeApi,
     postHalfDay,
     CreateExpense,
-    getUserHalfDay
+    getUserHalfDay,
+    getProjectTask,
+    getTasks
     
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
+  console.log("Userdata is here",user2)
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -85,7 +88,32 @@ const EmployeeHRM = ({
    
     
   });
-
+  const [task, setTask] = useState([
+    {
+      name: "Chirag",
+      assignDate: "31/05/2023",
+      endDate: "31/05/2023",
+      task: "Madfish"
+    },
+    {
+      name: "Chirag",
+      assignDate: "31/05/2023",
+      endDate: "31/05/2023",
+      task: "Madfish"
+    },
+    {
+      name: "Chirag",
+      assignDate: "31/05/2023",
+      endDate: "31/05/2023",
+      task: "Madfish"
+    },
+    {
+      name: "Chirag",
+      assignDate: "31/05/2023",
+      endDate: "31/05/2023",
+      task: "Madfish"
+    },
+  ])
   const [loadFlag, setLoadFlag] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -171,32 +199,6 @@ const EmployeeHRM = ({
 
   const [openAnn, setOpenAnn] = useState(false);
   const [totalHalfDay, setTotalHalfDay] = useState(0);
-  const [task, setTask] = useState([
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish",
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish",
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish",
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish",
-    },
-  ]);
   
 
 
@@ -223,6 +225,8 @@ const EmployeeHRM = ({
     });
     setLoadFlag(false);
   };
+
+console.log("userdata".user)
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
@@ -552,6 +556,7 @@ const EmployeeHRM = ({
   const getLeavesEmp = async () => {
     const ans = await fetchTodayLeave();
     if (ans?.status) {
+     
       setLeaveCount(ans?.data?.length);
     }
   };
@@ -1098,7 +1103,7 @@ const EmployeeHRM = ({
                             </tbody>
                           </table>
                         </div>
-                      </div>
+                      </div> 
                     </div>
 
                     {/* right side */}
@@ -1649,7 +1654,7 @@ const EmployeeHRM = ({
                       <div className="leaves_request_emp">
                         <div className="adflex">
                           <img src={leavimg} alt="" />
-                          <h3>Leaves</h3>
+                          <h3>Leaves </h3>
                         </div>
 
                         <div className="flex addpages items-center">
@@ -1732,7 +1737,7 @@ const EmployeeHRM = ({
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
                             <h5>{user2?.leaveNumber}</h5>
-                            <p>Total leave allowanc</p>
+                            <p>Total leave allowance</p>
                           </div>
 
                           <div>
