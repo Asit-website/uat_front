@@ -491,9 +491,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
-              
-            </form>
-            <div className="btnsss">
+              <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>Add Project</span>
                 </button>
@@ -515,6 +513,8 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                   <span>Cancel</span>
                 </button>
               </div>
+            </form>
+
           </div>
         </div>
       )}

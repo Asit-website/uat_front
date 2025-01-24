@@ -71,12 +71,13 @@ const EmployeeHRM = ({
     CreateExpense,
     getUserHalfDay,
     getProjectTask,
-    getTasks
+    
+    getAllTaskUser
     
   } = useMain();
 
   const user2 = JSON.parse(localStorage.getItem("hrms_user"));
-  console.log("Userdata is here",user2)
+  // console.log("Userdata is here",user2)
 
   const [counts, setCounts] = useState({
     activeEmployees: 0,
@@ -88,32 +89,30 @@ const EmployeeHRM = ({
    
     
   });
-  const [task, setTask] = useState([
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-    {
-      name: "Chirag",
-      assignDate: "31/05/2023",
-      endDate: "31/05/2023",
-      task: "Madfish"
-    },
-  ])
+  
+ 
+  const [tasks, setTasks] = useState([]);
+  const fetchTasks = async () => {
+    try {
+      const tasksData = await getAllTaskUser();
+      console.log("task data",tasksData)
+
+      if (tasksData && tasksData.data) {
+       
+        setTasks(Array.isArray(tasksData.data) ? tasksData.data : []);
+      } else {
+        setTasks([]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch tasks:', error);
+    }
+  };
+
+  
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const [loadFlag, setLoadFlag] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -211,7 +210,7 @@ const EmployeeHRM = ({
     const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
     
     const ans2 = await getTotalLeavesCount();
-     console.log("user total leaves count ",ans2)
+    //  console.log("user total leaves count ",ans2)
     setTotalLeave(ans2.totalLeave);
    
 
@@ -226,7 +225,7 @@ const EmployeeHRM = ({
     setLoadFlag(false);
   };
 
-console.log("userdata".user)
+// console.log("userdata".user)
 
   var [clock, setClock] = useState(0);
   var [breakClock, setBreakClock] = useState(0);
@@ -729,7 +728,7 @@ console.log("userdata".user)
   const leavestypecount = async () => {
     const resp = await leaveTypeApi({ id: user2?._id });
 
-    console.log("total all type of  leaves is here",resp)
+    // console.log("total all type of  leaves is here",resp)
     setLeaveTaken(resp?.data?.totalLeaves);
     setLeavedata({
       casualLeave: resp?.data?.casualLeave,
@@ -891,7 +890,7 @@ console.log("userdata".user)
                           <img className="firImg" src={ac1} alt="" />
 
                           <div className="titWrap">
-                            <h3>Half Day Request</h3>
+                            <h3>Half Day Request </h3>
                             <p className="hrmlRNu">{totalHalfDay}</p>
                           </div>
                         </div>
@@ -911,7 +910,7 @@ console.log("userdata".user)
                           <img className="firImg" src={ac2} alt="" />
 
                           <div className="titWrap">
-                            <h3>Leave Request</h3>
+                            <h3>Leave Request </h3>
                             <p className="hrmlRNu">{totalLeave}</p>
                           </div>
                         </div>
@@ -1076,7 +1075,7 @@ console.log("userdata".user)
                               </tr>
                             </thead>
                             <tbody>
-                              {task?.map((val, index) => {
+                              {tasks?.map((val, index) => {
                                 return (
                                   <tr
                                     key={index}
@@ -1681,7 +1680,7 @@ console.log("userdata".user)
                               setShowLeave(true);
                             }}
                           >
-                            <span> Create Leave</span>
+                            <span style={{textDecoration:"none !important"}} > Create Leave</span>
                           </button>
 
                           {(hrms_permission?.userAllowCrtPermission ||
@@ -1934,7 +1933,7 @@ console.log("userdata".user)
     <div className="leavewrapping">
       <div className="crelevecont">
         <div class="crelavetopsec">
-          <h3 class="leaveHead">Leave Request</h3>
+          <h3 class="leaveHead">Leave Request </h3>
           <img src={cutt} onClick={() => setShowLeave(false)} alt="" />
         </div>
 
@@ -2028,7 +2027,7 @@ console.log("userdata".user)
               type="button"
               className="leaverqbtns"
             >
-              <span>Request send</span>
+              <span style={{textDecoration:"none !important"}}>Request send</span>
             </button>
 
             <button
