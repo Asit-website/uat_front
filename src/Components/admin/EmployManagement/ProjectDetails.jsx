@@ -393,7 +393,8 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                 }
               }}
             >
-              <label>
+             <div style={{overflowY:"auto"}}>
+             <label>
                 <p>Subject</p>
                 <input
                   name="Title"
@@ -468,6 +469,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   placeholder="Description"
                 />
               </label>
+             </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
                   <span>{isEdit ? "Update" : "Add Task "}</span>
@@ -489,7 +491,7 @@ const ProjectDetails = ({ setAlert, pop, setPop }) => {
                   }}
                   className="cancel"
                 >
-                  <span>Cancel</span>
+                  <span>Cancel </span>
                 </button>
               </div>
             </form>

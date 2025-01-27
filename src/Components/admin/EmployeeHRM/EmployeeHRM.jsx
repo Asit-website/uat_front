@@ -90,26 +90,25 @@ const EmployeeHRM = ({
     
   });
   
- 
   const [tasks, setTasks] = useState([]);
+
   const fetchTasks = async () => {
     try {
       const tasksData = await getAllTaskUser();
-      console.log("task data",tasksData)
-
-      if (tasksData && tasksData.data) {
-       
-        setTasks(Array.isArray(tasksData.data) ? tasksData.data : []);
-      } else {
-        setTasks([]);
-      }
-    } catch (error) {
-      console.error('Failed to fetch tasks:', error);
-    }
-  };
 
   
-  useEffect(() => {
+      if (tasksData && tasksData.data) {
+           
+        const reversedTasks = tasksData.data.slice(0,6);
+        
+        setTasks(reversedTasks);
+       }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+  
+   useEffect(() => {
     fetchTasks();
   }, []);
 
@@ -210,7 +209,7 @@ const EmployeeHRM = ({
     const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
     
     const ans2 = await getTotalLeavesCount();
-    //  console.log("user total leaves count ",ans2)
+     console.log("user total leaves count ",ans2)
     setTotalLeave(ans2.totalLeave);
    
 
@@ -1052,7 +1051,7 @@ const EmployeeHRM = ({
                       <div className="hrLefThi">
                         <h2 className="headind">
                           {" "}
-                          <img src={taskA} alt="" /> <span>Task Assign</span>
+                          <img src={taskA} alt="" /> <span>Task Assign  </span>
                         </h2>
 
                         <div className="relative overflow-x-auto">
@@ -1075,31 +1074,36 @@ const EmployeeHRM = ({
                               </tr>
                             </thead>
                             <tbody>
-                              {tasks?.map((val, index) => {
-                                return (
-                                  <tr
-                                    key={index}
-                                    className="bg-white border-b  "
-                                  >
-                                    <th
-                                      scope="row"
-                                      className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns "
-                                    >
-                                      {val?.name}
-                                    </th>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.assignDate}
-                                    </td>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.endDate}
-                                    </td>
-                                    <td className="px-2 py-4 taskAns">
-                                      {val?.task}
-                                    </td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
+  {tasks?.length > 0 ? (
+    tasks.map((val, index) => (
+      <tr key={index} className="bg-white border-b">
+       
+        <th scope="row" className="px-2 py-4 font-medium tasklo whitespace-nowrap taskAns">
+          {val?.Members.fullName || "N/A"}
+        </th>
+       
+        <td className="px-2 py-4 taskAns">
+          {val?.StartDate || "N/A"}
+        </td>
+        {/* Render DueDate */}
+        <td className="px-2 py-4 taskAns">
+          {val?.DueDate || "N/A"}
+        </td>
+        {/* Render Description */}
+        <td className="px-2 py-4 taskAns">
+          {val?.Description || "N/A"}
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="text-center py-4">
+        No tasks available.
+      </td>
+    </tr>
+  )}
+</tbody>
+
                           </table>
                         </div>
                       </div> 
@@ -1941,104 +1945,101 @@ const EmployeeHRM = ({
 
         {/* <!-- Modal body --> */}
         <form className="levaecretaeform" action="#">
-          <div class="user_classleave">
-            <label>Leave type</label>
-            <select
-              name="leaveType"
-              onChange={changeHandler}
-              value={formdata.leaveType}
-              required
-            >
-              {leaveType.map((item, index) => (
-                <option value={item?.name} key={index}>
-                  {item?.name}
-                </option>
-              ))}
-            </select>
-          </div>
+  <div className="user_classleave">
+    <label>Leave type</label>
+    <select
+      name="leaveType"
+      onChange={changeHandler}
+      value={formdata.leaveType}
+      required
+    >
+      {leaveType.map((item, index) => (
+        <option value={item?.name} key={index}>
+          {item?.name}
+        </option>
+      ))}
+    </select>
+  </div>
 
-          <div className="levaecreflex">
-            <div class="user_class_input3 w-full mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                Start
-              </label>
-              <input
-                value={formdata.start}
-                onChange={changeHandler}
-                type="date"
-                name="start"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
+  <div className="levaecreflex">
+    <div className="user_class_input3 w-full mt-2">
+      <label
+        htmlFor="text"
+        className="block mb-2 text-sm font-medium text-gray-900 employName"
+      >
+        Start
+      </label>
+      <input
+        value={formdata.start}
+        onChange={changeHandler}
+        type="date"
+        name="start"
+        id="text"
+        className="startDate"
+        required
+      />
+    </div>
 
-            <div class="user_class_input3 w-full ml-2 mt-2">
-              <label
-                for="text"
-                class="block mb-2 text-sm font-medium text-gray-900 employName"
-              >
-                End
-              </label>
-              <input
-                value={formdata.end}
-                onChange={changeHandler}
-                type="date"
-                name="end"
-                id="text"
-                class="startDate"
-                required
-              />
-            </div>
-          </div>
+    <div className="user_class_input3 w-full ml-2 mt-2">
+      <label
+        htmlFor="text"
+        className="block mb-2 text-sm font-medium text-gray-900 employName"
+      >
+        End
+      </label>
+      <input
+        value={formdata.end}
+        onChange={changeHandler}
+        type="date"
+        name="end"
+        id="text"
+        className="startDate"
+        required
+      />
+    </div>
+  </div>
 
-          <div class="levelreasons">
-            <label
-              for="message"
-              class="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
-            >
-              Reason
-            </label>
-            <textarea
-              required
-              name="reason"
-              onChange={changeHandler}
-              value={formdata.reason}
-              id="message"
-              rows="4"
-              class="reasonText2"
-              placeholder="Enter your reason..."
-            ></textarea>
-          </div>
+  <div className="levelreasons">
+    <label
+      htmlFor="message"
+      className="block mb-2 mt-2 text-sm font-medium text-gray-900 employName"
+    >
+      Reason
+    </label>
+    <textarea
+      required
+      name="reason"
+      onChange={changeHandler}
+      value={formdata.reason}
+      id="message"
+      rows="4"
+      className="reasonText2"
+      placeholder="Enter your reason..."
+    ></textarea>
+  </div>
 
-          <div className="leavebuttons">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (validateForm(formdata)) {
-                  submitHandler(e);
-                } else {
-                  alert("Please fill out all required fields.");
-                }
-              }}
-              type="button"
-              className="leaverqbtns"
-            >
-              <span style={{textDecoration:"none !important"}}>Request send</span>
-            </button>
+  <div className="leavebuttons">
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        submitHandler(e);
+      }}
+      type="button"
+      className="leaverqbtns"
+    >
+      <span style={{ textDecoration: "none!important" }}>Request send</span>
+    </button>
 
-            <button
-              onClick={() => setStar1(false)}
-              type="button"
-              class="levacanclebtns"
-            >
-              <span>Cancel</span>
-            </button>
-          </div>
-        </form>
+    <button
+      onClick={() => setStar1(false)}
+      type="button"
+      className="levacanclebtns"
+    >
+      <span>Cancel</span>
+    </button>
+  </div>
+</form>
+
       </div>
     </div>
   </>

@@ -415,6 +415,7 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
             <hr />
 
             <form onSubmit={isEdit ? editHandler : submitHandler}>
+              <div style={{overflowY:"auto"}}>
               <label>
                 <p>Name</p>
                 <input
@@ -491,9 +492,10 @@ const TaskProjects = ({ setAlert, pop, setPop }) => {
                 />
               </label>
 
+              </div>
               <div className="btnsss">
                 <button type="submit" className="saveclient">
-                  <span>Add Project</span>
+                  <span>Add Project </span>
                 </button>
                 <button
                   onClick={() => {
