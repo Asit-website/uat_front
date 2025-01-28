@@ -209,7 +209,7 @@ const EmployeeHRM = ({
     const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
     
     const ans2 = await getTotalLeavesCount();
-     console.log("user totalleavescount ",ans2)
+    //  console.log("user totalleavescount ",ans2)
 
     setTotalLeave(ans2.totalLeave);
     setTotalHalfDay(ans2.halfDay)
@@ -642,6 +642,7 @@ const EmployeeHRM = ({
   const fetchLeaveType = async () => {
     const resp = await getLeaveTypes();
     if (resp.success) {
+      // console.log("leaves type ",resp?.data)
       setLeaveType(resp?.data);
     }
   };
@@ -725,18 +726,23 @@ const EmployeeHRM = ({
       allowance: "",
     });
   };
-
   const leavestypecount = async () => {
     const resp = await leaveTypeApi({ id: user2?._id });
-
-    // console.log("total all type of  leaves is here",resp)
-    setLeaveTaken(resp?.data?.totalLeaves);
+  
+    console.log("Leaves Type Count:", resp);
+  
+    setLeaveTaken(
+      (resp?.data?.casualLeave || 0) +
+      (resp?.data?.paidLeave || 0) +
+     ( (resp?.data?.halfDays || 0)*0.5)
+    );
     setLeavedata({
-      casualLeave: resp?.data?.casualLeave,
-      paidLeave: resp?.data?.paidLeave,
-      halfDays: resp?.data?.halfDays,
+      casualLeave: resp?.data?.casualLeave || 0,
+      paidLeave: resp?.data?.paidLeave || 0,
+      halfDays: resp?.data?.halfDays || 0,
     });
   };
+  
 
   useEffect(() => {
     fetchemployess();
@@ -1771,7 +1777,7 @@ const EmployeeHRM = ({
                         <div className="totel_leave_allowance1">
                           <div className="totalLeaText">
                             <h5>{totalLeavetaken}</h5>
-                            <p>Total leave taken</p>
+                            <p>Total leave taken </p>
                           </div>
                           <div>
                             <p>
@@ -2029,7 +2035,7 @@ const EmployeeHRM = ({
       type="button"
       className="leaverqbtns"
     >
-      <span style={{ textDecoration: "none!important" }}>Request send</span>
+      <span style={{color: "white" }}>Request send </span>
     </button>
 
     <button
@@ -2130,7 +2136,7 @@ const EmployeeHRM = ({
               type="button"
               className="leaverqbtns"
             >
-              <span>Request send</span>
+              <span  style={{color:"white"}}>Request send</span>
             </button>
 
             <button
