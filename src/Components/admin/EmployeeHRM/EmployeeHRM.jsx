@@ -209,9 +209,10 @@ const EmployeeHRM = ({
     const totalDeactivated=ans?.data?.filter(emp => emp.isDeactivated !== "No");
     
     const ans2 = await getTotalLeavesCount();
-     console.log("user total leaves count ",ans2)
+     console.log("user totalleavescount ",ans2)
+
     setTotalLeave(ans2.totalLeave);
-   
+    setTotalHalfDay(ans2.halfDay)
 
     setCounts({
       ...counts,
@@ -650,6 +651,7 @@ const EmployeeHRM = ({
 
   const getTodayBirthdayapi = async () => {
     const ans = await getTodayBirthday();
+    console.log("get bday employee",ans)
     setUserBirth(ans);
   };
 
@@ -1937,7 +1939,7 @@ const EmployeeHRM = ({
     <div className="leavewrapping">
       <div className="crelevecont">
         <div class="crelavetopsec">
-          <h3 class="leaveHead">Leave Request </h3>
+          <h3 class="leaveHead">Leave Request  </h3>
           <img src={cutt} onClick={() => setShowLeave(false)} alt="" />
         </div>
 
